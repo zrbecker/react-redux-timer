@@ -1,7 +1,6 @@
 import React from 'react'
 
-import StartTimerAction from './actions/start-timer-action'
-import ResetTimerAction from './actions/reset-timer-action'
+import {createResetTimerAction, createStartTimerAction} from './actions'
 
 const Timer = ({startTime, secondsRemaining, store}) => {
   const started = Boolean(startTime)
@@ -9,7 +8,9 @@ const Timer = ({startTime, secondsRemaining, store}) => {
     return (
       <div>
         <p>{secondsRemaining} seconds remaining</p>
-        <button onClick={() => store.dispatch(ResetTimerAction())}>Reset Timer</button>
+        <button onClick={() => store.dispatch(createResetTimerAction())}>
+          Reset Timer
+        </button>
       </div>
     )
   } else {
@@ -23,9 +24,11 @@ const Timer = ({startTime, secondsRemaining, store}) => {
             if (isNaN(seconds)) {
               seconds = 0
             }
-            store.dispatch(StartTimerAction(seconds))
+            store.dispatch(createStartTimerAction(seconds))
           }
-        }>Start Timer</button>
+        }>
+          Start Timer
+        </button>
       </div>
     )
   }

@@ -3,7 +3,7 @@ import * as Redux from 'redux'
 
 import timerReducer from './timer-reducer'
 import Timer from './Timer'
-import UpdateTimerAction from './actions/update-timer-action'
+import {createUpdateTimerAction} from './actions'
 
 export default class TimerApp extends React.Component {
   constructor() {
@@ -19,7 +19,7 @@ export default class TimerApp extends React.Component {
     const {paused} = this.store.getState()
     if (!paused && !this.interval) {
       this.interval = setInterval(
-        () => this.store.dispatch(UpdateTimerAction()), 100)
+        () => this.store.dispatch(createUpdateTimerAction()), 100)
     } else if (paused && this.interval) {
       clearInterval(this.interval)
       this.interval = null
