@@ -1,9 +1,9 @@
 import C from './constants'
 
-const UpdateTimerAction = (currentTime) => {
+const UpdateTimerAction = () => {
   return {
     type: C.UPDATE_TIMER,
-    currentTime
+    currentTime: Date.now()
   }
 }
 

@@ -13,10 +13,11 @@ const timerReducer = (state={}, action) => {
     case C.UPDATE_TIMER:
       if (!state.paused) {
         const secondsElapsed = (action.currentTime - state.startTime) / 1000
-        const secondsRemaining = Math.ceil(state.seconds - secondsElapsed)
+        const secondsRemaining = Math.max(0,
+          Math.ceil(state.seconds - secondsElapsed))
         return {
           ...state,
-          secondsRemaining: Math.max(0, secondsRemaining),
+          secondsRemaining,
           paused: secondsRemaining === 0
         }
       } else {

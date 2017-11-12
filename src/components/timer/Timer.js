@@ -23,7 +23,7 @@ const Timer = ({startTime, secondsRemaining, store}) => {
             if (isNaN(seconds)) {
               seconds = 0
             }
-            store.dispatch(StartTimerAction(Date.now(), seconds))
+            store.dispatch(StartTimerAction(seconds))
           }
         }>Start Timer</button>
       </div>

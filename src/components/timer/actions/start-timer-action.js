@@ -1,10 +1,10 @@
 import C from './constants'
 
-const StartTimerAction = (startTime, seconds) => {
+const StartTimerAction = (seconds) => {
   return {
     type: C.START_TIMER,
-    startTime,
-    seconds
+    startTime: Date.now(),
+    seconds,
   }
 }
 

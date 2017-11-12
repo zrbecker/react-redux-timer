@@ -10,17 +10,23 @@ export default class TimerApp extends React.Component {
     super()
     this.store = Redux.createStore(timerReducer)
     this.interval = null
-    this.store.subscribe(() => {
-      const {paused} = this.store.getState()
-      if (!paused && !this.interval) {
-        this.interval = setInterval(
-          () => this.store.dispatch(UpdateTimerAction(Date.now())), 100)
-      } else if (paused && this.interval) {
-        clearInterval(this.interval)
-        this.interval = null
-      }
-      this.forceUpdate()
-    })
+
+    this.store.subscribe(() => this.onStorageUpdate())
+  }
+
+  onStorageUpdate() {
+    // Start or stop javascript time interval if needed.
+    const {paused} = this.store.getState()
+    if (!paused && !this.interval) {
+      this.interval = setInterval(
+        () => this.store.dispatch(UpdateTimerAction()), 100)
+    } else if (paused && this.interval) {
+      clearInterval(this.interval)
+      this.interval = null
+    }
+
+    // Render component with new state.
+    this.forceUpdate()
   }
 
   render() {
