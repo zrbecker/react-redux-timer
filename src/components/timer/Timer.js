@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Pie from './Pie.js';
 
 import {createResetTimerAction, createStartTimerAction} from './actions'
 
@@ -11,6 +12,7 @@ const Timer = ({startTime, secondsRemaining, store}) => {
         <button onClick={() => store.dispatch(createResetTimerAction())}>
           Reset Timer
         </button>
+        <Pie time={secondsRemaining} />
       </div>
     )
   } else {
