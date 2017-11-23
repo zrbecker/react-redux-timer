@@ -1,42 +1,39 @@
-import React from 'react';
+import React from 'react'
 
 export default class Pie extends React.Component {
   constructor(props) {
-     super(props);
-    this.state = {style: {}, x: 400, y: 200, slice: (360/this.props.time), totalSlices: this.props.time};
-    this.draw = this.draw.bind(this);
+    super(props)
+    this.state = {totalTime: null}
   }
 
-  draw() {
-    let radians = ( this.state.totalSlices - this.props.time + 1 )*this.state.slice*(Math.PI / 180);
-    let radius = 200, cx = 200, cy = 200;
-    let x = cx + radius*Math.cos(radians);
-    let y = cy + radius*Math.sin(radians);
-    this.setState( {x: x,y: y} );
+  componentWillMount() {
+    this.setState({totalTime: this.props.time});
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if( this.props.time != nextProps.time )
-      return true;
-    else
-      return false;
-    if( this.state.x != nextState.x ) {
-      return true;
+  render() {   
+    
+    const lineStyle = {
+      stroke: '#FFF',
+      strokeWidth: 2
     }
-  }
+     
+    let slice = 360/(this.state.totalTime)
+    let totalSlices = this.state.totalTime
+    let radians = (totalSlices - this.props.time)*slice*(Math.PI / 180)
+    let radius = 200, cx = 200, cy = 200
+    let x = radius*Math.cos(radians)
+    let y = radius*Math.sin(radians)
 
-  componentDidUpdate() {
-    this.draw();
-  }
-
-  render() {    
-    //todo: supress warning on anti-pattern
-    this.draw();
     return ( 
       <div>
         <svg height="400px" width="400px">
-          <circle cx="200px" cy="200px" r="200px" />
-           <line x1="200px" y1="200px" x2={this.state.x} y2={this.state.y} style={{ stroke: 'rgb(255,255,255)', strokeWidth: 2}} />       
+          <circle cx={cx} cy={cy} r={radius} />
+          <line x1={cx} y1={cy} x2={x+cx} y2={y+cy} style={lineStyle} />
+          <circle cx={cx} cy={cy} r={8} fill="#F00" />
+          {/* TODO: animate inner circle */}
+          <g>
+            <circle cx={x*.85+cx} cy={y*.85+cy} r={30} fill="#555"/>
+          </g>
         </svg>
       </div>
     )
