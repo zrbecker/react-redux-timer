@@ -3,7 +3,7 @@ import Pie from './Pie.js'
 
 import {createResetTimerAction, createStartTimerAction} from './actions'
 
-const Timer = ({startTime, secondsRemaining, store}) => {
+const Timer = ({startTime, seconds, secondsRemaining, store}) => {
   const started = Boolean(startTime)
   if (started) {
     return (
@@ -12,7 +12,7 @@ const Timer = ({startTime, secondsRemaining, store}) => {
         <button onClick={() => store.dispatch(createResetTimerAction())}>
           Reset Timer
         </button>
-        <Pie totalTime={startTime} time={secondsRemaining} />
+        <Pie {...{seconds, secondsRemaining}} />
       </div>
     )
   } else {
